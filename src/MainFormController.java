@@ -48,19 +48,24 @@ public class MainFormController {
     }
 
     public void sumOnAction(MouseEvent mouseEvent) {
+        exec('+');
     }
 
     public void subOnAction(MouseEvent mouseEvent) {
+        exec('-');
     }
 
     public void devOnAction(MouseEvent mouseEvent) {
+        exec('/');
     }
 
     public void mulOnAction(MouseEvent mouseEvent) {
+        exec('*');
     }
 
     private double numberOne = 0;
-    private char exp = '+';
+    private double numberTwo = 0;
+    private char exp;
 
     private void setNumber(int number){
         //txtInput.setText(number+"");
@@ -73,8 +78,29 @@ public class MainFormController {
 
     private void exec(char exp){
         this.exp = exp;
-        numberOne = Double.parseDouble((txtInput.getText()));
-        // txtInput.setText("");    // Not use
-        txtInput.clear();
+
+        if(numberOne==0){
+            numberOne = Double.parseDouble((txtInput.getText()));
+            // txtInput.setText("");    // Not use
+            txtInput.clear();
+        }
+        else {
+            numberTwo = Double.parseDouble((txtInput.getText()));
+            calculate();
+        }
+    }
+
+    private void calculate(){
+        double answer=0;
+
+        switch (exp){
+            case  '+' : answer=numberOne+numberTwo; break;
+            case  '-' : answer=numberOne-numberTwo; break;
+            case  '/' : answer=numberOne/numberTwo; break;
+            case  '*' : answer=numberOne*numberTwo; break;
+        }
+        txtInput.setText(String.valueOf(answer));
+        numberTwo=0;
+        numberOne=0;
     }
 }
